@@ -38,6 +38,30 @@ public class Utils {
         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(msg));
     }
 
+    public static String timeLeft(long timeoutSeconds) {
+        int days = (int) (timeoutSeconds / 86400);
+        int hours = (int) (timeoutSeconds / 3600) % 24;
+        int minutes = (int) (timeoutSeconds / 60) % 60;
+        long seconds = timeoutSeconds % 60;
+
+        String left;
+        if (days < 1) {
+            if (hours < 1) {
+                if (minutes < 1) {
+                    left = "§c" + seconds + " §7seconds§c";
+                } else {
+                    left = "§c" + minutes + " §7minutes§c " + seconds + " §7seconds§c";
+                }
+            } else {
+                left = "§c" + hours + " §7hours§c " + minutes + " §7minutes§c " + seconds + " §7seconds§c";
+            }
+        } else {
+            left = "§c" + days + " §7days§c " + hours + " §7hours§c " + minutes + " §7minutes§c " + seconds + " §7seconds§c";
+        }
+        return left;
+
+    }
+
     public static void calculateRichest() {
 
         for (Player p : Bukkit.getOnlinePlayers()) {

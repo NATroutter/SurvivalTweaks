@@ -3,6 +3,7 @@ package net.natroutter.survivaltweaks.features;
 import net.natroutter.natlibs.handlers.Database.YamlDatabase;
 import net.natroutter.natlibs.objects.BasePlayer;
 import net.natroutter.survivaltweaks.SurvivalTweaks;
+import net.natroutter.survivaltweaks.commands.PvP;
 import net.natroutter.survivaltweaks.utilities.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,12 +23,19 @@ public class PvPProtection implements Listener {
 
             if (database.getBoolean(victim, "PvP")) {
                 e.setCancelled(true);
-                Utils.sendAction(victim, "§7You have been protected from §c" + attacker.getName() + "'s §7attacks");
-                Utils.sendAction(attacker, "§7You can't attack §c" + victim.getName() + " §7they are protected §c/pvp");
+                Utils.sendAction(victim, "§cYou have been protected from §4" + attacker.getName() + "'s §cattacks");
+                Utils.sendAction(attacker, "§cYou can't attack §4" + victim.getName() + " §cthey are protected");
+
+            } else if (database.getBoolean(attacker, "PvP")) {
+                e.setCancelled(true);
+                Utils.sendAction(victim, "§cYou have been protected from §4" + attacker.getName() + "'s §cattacks");
+                Utils.sendAction(attacker, "§cYou can't attack §4" + victim.getName() + " §cwhen you are pvp protected");
+            } else {
+                PvP.cooldowns.put(victim.getUniqueId(), System.currentTimeMillis());
+                PvP.cooldowns.put(attacker.getUniqueId(), System.currentTimeMillis());
             }
 
         }
-
     }
 
 }

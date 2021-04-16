@@ -27,7 +27,7 @@ public class RewriteableBooks implements Listener {
 
                     if (book.getAuthor().equals(p.getDisplayName())) {
                         item.setType(Material.WRITABLE_BOOK);
-                        Utils.sendAction(p, "§7Book is now writeable!");
+                        Utils.sendAction(p, "§cBook is now writeable!");
                     }
 
                 }

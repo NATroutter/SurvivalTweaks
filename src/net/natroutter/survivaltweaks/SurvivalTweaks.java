@@ -74,8 +74,8 @@ public class SurvivalTweaks extends JavaPlugin {
         console.sendMessage("§4              | | \\ V  V / -_) _` | / /(_-< ");
         console.sendMessage("§4              |_|  \\_/\\_/\\___\\__,_|_\\_\\/__/ ");
         console.sendMessage(" ");
-        console.sendMessage("         §cSurvivalTweaks §4" + pdf.getVersion() + " §cLoaded");
-        console.sendMessage("        §cDeveloped by §4NATroutter §cwith §4♥");
+        console.sendMessage("        §cSurvivalTweaks §4" + pdf.getVersion() + " §cLoaded");
+        console.sendMessage("       §cDeveloped by §4NATroutter §cwith §4♥");
         console.sendMessage(" ");
     }
 
