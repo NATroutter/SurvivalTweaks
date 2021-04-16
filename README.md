@@ -6,7 +6,7 @@
 SurvivalTweaks is a small spigot plugin that enhances vanilla gameplay experience
 
 </div>
- 
+
 ## Features
 1. <h4 style="margin:0px">Armor Alerts</h4>
    Display warning message when your armor is about to break
@@ -28,8 +28,15 @@ SurvivalTweaks is a small spigot plugin that enhances vanilla gameplay experienc
    When player hold writen book and sneak + rightclick it is changed back to writeable book (only if player is original owner of the book)
 10. <h4 style="margin:0px">Creeper Protect</h4>
     When creeper explodes it does not break any blocks
-11. <h4 style="margin:0px">tst</h4>
-    test
+11. <h4 style="margin:0px">Spawning Changes</h4>
+    - When mobs spawn naturally they dont spawn with helmets   
+    - Bats can not spawn at all   
+    - Zombified piglins cant spawn into nether portals   
 12. <h4 style="margin:0px">Creeper awdawd</h4>
-    test2
+    Scoreboard that show players statistics   
+    Current scoreboards   
+    - Player Death count   
+    - Elytra Distance Flown   
+    - Player levels   
+    - Richest Player (diamonds in enderchest)   
    
