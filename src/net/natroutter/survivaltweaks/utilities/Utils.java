@@ -26,8 +26,8 @@ public class Utils {
         return CurrentDur < CalcResult;
     }
 
-    public static void UpdateTabname(BasePlayer p) {
-        if (AfkDisplay.isAFK.getOrDefault(p.getUniqueId(), false)) {
+    public static void UpdateTabname(BasePlayer p, boolean isAFK) {
+        if (isAFK) {
             p.setPlayerListName("§8[AFK] §7" + p.getDisplayName());
         } else {
             p.setPlayerListName("§7" + p.getDisplayName());
