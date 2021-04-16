@@ -27,10 +27,9 @@ SurvivalTweaks is a small spigot plugin that enhances vanilla gameplay experienc
 9. <h4 style="margin:0px">Rewriteable Books</h4>
    When player hold writen book and sneak + rightclick it is changed back to writeable book (only if player is original owner of the book)
 10. <h4 style="margin:0px">Creeper Protect</h4>
-   When creeper explodes it does not break any blocks
-11. <h4 style="margin:0px">Spawning Changes</h4>
-    teswt
-12. <h4 style="margin:0px">Rotating Scoreboards</h4>
-    Scoreboard that show players statistics   
-
+    When creeper explodes it does not break any blocks
+11. <h4 style="margin:0px">tst</h4>
+    test
+12. <h4 style="margin:0px">Creeper awdawd</h4>
+    test2
    
