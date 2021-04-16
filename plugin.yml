@@ -1,0 +1,6 @@
+main: net.natroutter.survivaltweaks.SurvivalTweaks
+name: SurvivalTweaks
+version: 1.0.0
+author: NATroutter
+description: Adds some mostly vanilla friendly tweaks to your survival gameplay
+api-version: 1.16
