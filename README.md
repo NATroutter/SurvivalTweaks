@@ -29,14 +29,8 @@ SurvivalTweaks is a small spigot plugin that enhances vanilla gameplay experienc
 10. <h4 style="margin:0px">Creeper Protect</h4>
    When creeper explodes it does not break any blocks
 11. <h4 style="margin:0px">Spawning Changes</h4>
-    - When mobs spawn naturally they dont spawn with helmets   
-    - Bats can not spawn at all   
-    - Zombified piglins cant spawn into nether portals   
+    teswt
 12. <h4 style="margin:0px">Rotating Scoreboards</h4>
     Scoreboard that show players statistics   
-    Current scoreboards   
-    - Player Death count   
-    - Elytra Distance Flown   
-    - Player levels   
-    - Richest Player (diamonds in enderchest)   
+
    
