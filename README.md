@@ -27,16 +27,16 @@ SurvivalTweaks is a small spigot plugin that enhances vanilla gameplay experienc
 9. <h4 style="margin: 0px;font-weight: 700;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji">AFK Display</h3>
    When player hold writen book and sneak + rightclick it is changed back to writeable book (only if player is original owner of the book)
 10. <h4 style="margin: 0px;font-weight: 700;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji">Creeper Protect</h3>
-   When creeper explodes it does not break any blocks   
+   When creeper explodes it does not break any blocks
 11. <h4 style="margin: 0px;font-weight: 700;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji">Spawning Changes</h3>
-    - When mobs spawn naturally they cant spawn with helmets
-    - Bats can not spawn at all
-    - Zombified piglins cant spawn into nether portals
+    - When mobs spawn naturally they dont spawn with helmets   
+    - Bats can not spawn at all   
+    - Zombified piglins cant spawn into nether portals   
 12. <h4 style="margin: 0px;font-weight: 700;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji">Rotating Scoreboards</h3>
     Scoreboard that show players statistics   
-    Current scoreboards
-    - Player Death count
-    - Elytra Distance Flown
-    - Player levels
-    - Richest Player (diamonds in enderchest)
+    Current scoreboards   
+    - Player Death count   
+    - Elytra Distance Flown   
+    - Player levels   
+    - Richest Player (diamonds in enderchest)   
    
