@@ -9,6 +9,9 @@ import net.natroutter.survivaltweaks.features.scoreboards.JoinScoreboard;
 import net.natroutter.survivaltweaks.features.scoreboards.ScoreboardHandler;
 import net.natroutter.survivaltweaks.utilities.Lang;
 import net.natroutter.survivaltweaks.utilities.ScheduledTasks;
+import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SurvivalTweaks extends JavaPlugin {
@@ -59,6 +62,21 @@ public class SurvivalTweaks extends JavaPlugin {
         );
 
         ScheduledTasks st = new ScheduledTasks(this, sbHandler);
+
+        ConsoleCommandSender console = Bukkit.getConsoleSender();
+        PluginDescriptionFile pdf = this.getDescription();
+        console.sendMessage(" ");
+        console.sendMessage("§4  ___              _          _             ");
+        console.sendMessage("§4 / __|_  _ _ ___ _(_)_ ____ _| |            ");
+        console.sendMessage("§4 \\__ \\ || | '_\\ V / \\ V / _` | |            ");
+        console.sendMessage("§4 |___/\\_,_|_|__\\_/|_|\\_/\\__,_|_|   _        ");
+        console.sendMessage("§4            |_   _|_ __ _____ __ _| |__ ___ ");
+        console.sendMessage("§4              | | \\ V  V / -_) _` | / /(_-< ");
+        console.sendMessage("§4              |_|  \\_/\\_/\\___\\__,_|_\\_\\/__/ ");
+        console.sendMessage(" ");
+        console.sendMessage("         §cSurvivalTweaks §4" + pdf.getVersion() + " §cLoaded");
+        console.sendMessage("        §cDeveloped by §4NATroutter §cwith §4♥");
+        console.sendMessage(" ");
     }
 
 
