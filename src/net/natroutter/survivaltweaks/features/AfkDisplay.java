@@ -14,16 +14,17 @@ import java.util.UUID;
 public class AfkDisplay implements Listener {
 
     public static HashMap <UUID, Long> lastMoved = new HashMap<>();
-    public static HashMap<UUID, Boolean> isAFK = new HashMap<UUID, Boolean>();
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
         BasePlayer p = BasePlayer.from(e.getPlayer());
 
-        lastMoved.put(p.getUniqueId(), System.currentTimeMillis());
-        if (isAFK.getOrDefault(e.getPlayer().getUniqueId(), false)) {
-            Utils.UpdateTabname(p);
+        long lastmoved_sec = ((System.currentTimeMillis() - lastMoved.getOrDefault(p.getUniqueId(), 0L)) / 1000);
+        if (lastmoved_sec >= 5) {
+            Utils.UpdateTabname(p, false);
         }
+
+        lastMoved.put(p.getUniqueId(), System.currentTimeMillis());
     }
 
     @EventHandler
