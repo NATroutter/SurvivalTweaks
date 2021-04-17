@@ -23,9 +23,8 @@ public class PetTeleporting implements Listener {
 
             if (pet.getOwner() instanceof Player) {
                 BasePlayer owner = BasePlayer.from((Player)pet.getOwner());
-                String ownerUUID = owner.getUniqueId().toString();
 
-                if (!database.getBoolean(ownerUUID, "PetTP")) {
+                if (!database.getBoolean(owner, "PetTP")) {
                     e.setCancelled(true);
                 }
 

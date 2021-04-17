@@ -78,7 +78,7 @@ public class Utils {
                 } else if (item.getType().equals(Material.DIAMOND_BLOCK)) {
                     riches = riches + item.getAmount() * 9;
 
-                } else if (item.getType().name().endsWith("_SHULKER_BOX")) {
+                } else if (item.getType().name().endsWith("SHULKER_BOX")) {
                     if (item.getItemMeta() instanceof BlockStateMeta) {
                         BlockStateMeta meta = (BlockStateMeta)item.getItemMeta();
                         if (meta.getBlockState() instanceof ShulkerBox) {

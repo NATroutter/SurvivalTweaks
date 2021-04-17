@@ -24,7 +24,7 @@ public class DamageAlert implements Listener {
         if (e.getEntity() instanceof Player) {
             BasePlayer p = BasePlayer.from(e.getEntity());
 
-            if (database.getBoolean(p.getUniqueId().toString(), "HealthAlert")) {
+            if (database.getBoolean(p, "HealthAlert")) {
                 if (p.getHealth() <= 10) {
 
                     if (!e.getCause().equals(EntityDamageEvent.DamageCause.VOID)) {
@@ -33,10 +33,12 @@ public class DamageAlert implements Listener {
                 }
             }
 
-            if (database.getBoolean(p.getUniqueId().toString(), "ArmorAlert")) {
+            if (database.getBoolean(p, "ArmorAlert")) {
 
                 for (ItemStack armor : p.getEquipment().getArmorContents()) {
-                    if (armor != null || !armor.getType().equals(Material.AIR)) {
+                    if (armor != null) {
+                        if (armor.getType().equals(Material.AIR)) {continue;}
+
                         BaseItem item = BaseItem.from(armor);
                         if (Utils.lowDurability(p,  item)) {
                             p.sendTitle("", "§c§l🛡 LOW ARMOR DURABIITY 🛡", 0, 15, 10);

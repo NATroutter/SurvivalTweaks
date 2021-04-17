@@ -39,7 +39,7 @@ public class NoStripNoPath implements Listener {
 
                     if (p.getItemInHand().getType().name().endsWith("_AXE")) {
 
-                        if (!database.getBoolean(uuid, "StripLog")) {
+                        if (!database.getBoolean(p, "StripLog")) {
                             Utils.sendAction(p, "§cAction prevented by SurvivalTweaks §4/striplog");
                             e.setCancelled(true);
                         }
@@ -52,9 +52,9 @@ public class NoStripNoPath implements Listener {
 
                     if (p.getItemInHand().getType().name().endsWith("_SHOVEL")) {
 
-                        if (!database.getBoolean(uuid, "GrassPath")) {
+                        if (!database.getBoolean(p, "GrassPath")) {
                             e.setCancelled(true);
-                            Utils.sendAction(p, "§cAction prevented by SurvivalTweaks §4/striplog");
+                            Utils.sendAction(p, "§cAction prevented by SurvivalTweaks §4/grasspath");
                         }
                     }
                 }
