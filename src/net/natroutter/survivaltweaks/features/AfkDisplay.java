@@ -1,7 +1,7 @@
 package net.natroutter.survivaltweaks.features;
 
-import net.natroutter.natlibs.objects.BasePlayer;
 import net.natroutter.survivaltweaks.utilities.Utils;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -17,11 +17,11 @@ public class AfkDisplay implements Listener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
-        BasePlayer p = BasePlayer.from(e.getPlayer());
+        Player p = e.getPlayer();
 
         long lastmoved_sec = ((System.currentTimeMillis() - lastMoved.getOrDefault(p.getUniqueId(), 0L)) / 1000);
         if (lastmoved_sec >= 5) {
-            Utils.UpdateTabname(p, false);
+            Utils.updateTabname(p, false);
         }
 
         lastMoved.put(p.getUniqueId(), System.currentTimeMillis());
@@ -29,7 +29,7 @@ public class AfkDisplay implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        BasePlayer p = BasePlayer.from(e.getPlayer());
+        Player p = e.getPlayer();
         if (!lastMoved.containsKey(p.getUniqueId())) {
             lastMoved.put(p.getUniqueId(), System.currentTimeMillis());
         }
@@ -37,7 +37,7 @@ public class AfkDisplay implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        BasePlayer p = BasePlayer.from(e.getPlayer());
+        Player p = e.getPlayer();
         lastMoved.remove(p.getUniqueId());
     }
 

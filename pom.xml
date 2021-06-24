@@ -6,17 +6,16 @@
 
     <groupId>net.natroutter</groupId>
     <artifactId>SurvivalTweaks</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
-
     <name>SurvivalTweaks</name>
-
     <description>Adds some mostly vanilla friendly tweaks to your survival gameplay</description>
+    <url>https://NATroutter.net</url>
+
     <properties>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>https://NATroutter.net</url>
 
     <build>
         <sourceDirectory>src</sourceDirectory>
@@ -78,12 +77,12 @@
         <dependency>
             <groupId>net.natroutter</groupId>
             <artifactId>NATLibs</artifactId>
-            <version>1.1.23</version>
+            <version>1.1.50</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <version>1.17-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

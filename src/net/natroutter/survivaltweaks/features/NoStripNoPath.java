@@ -1,29 +1,37 @@
 package net.natroutter.survivaltweaks.features;
 
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.natroutter.natlibs.handlers.Database.YamlDatabase;
-import net.natroutter.natlibs.objects.BaseItem;
-import net.natroutter.natlibs.objects.BasePlayer;
 import net.natroutter.survivaltweaks.SurvivalTweaks;
 import net.natroutter.survivaltweaks.utilities.Utils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
 
 public class NoStripNoPath implements Listener {
 
     private final YamlDatabase database = SurvivalTweaks.getYamlDatabase();
 
+    public static ArrayList<Material> Pathmats = new ArrayList<>() {{
+        add(Material.GRASS_BLOCK);
+        add(Material.MYCELIUM);
+        add(Material.DIRT);
+        add(Material.COARSE_DIRT);
+        add(Material.PODZOL);
+        add(Material.ROOTED_DIRT);
+        add(Material.MYCELIUM);
+
+    }};
+
     @EventHandler
     public void BlockTransform(PlayerInteractEvent e) {
 
-        BasePlayer p = BasePlayer.from(e.getPlayer());
+        Player p = e.getPlayer();
         String uuid = p.getUniqueId().toString();
 
         if (e.hasBlock() && e.getClickedBlock() != null) {
@@ -31,7 +39,7 @@ public class NoStripNoPath implements Listener {
             Action act = e.getAction();
 
             if (act.equals(Action.RIGHT_CLICK_BLOCK)) {
-                if (block.getType().name().endsWith("_LOG") || block.getType().name().endsWith("_STEM")) {
+                if (block.getType().name().endsWith("_LOG") || block.getType().name().endsWith("_STEM") || block.getType().name().endsWith("_WOOD")) {
 
                     if (p.getItemInHand() == null || p.getItemInHand().getType().equals(Material.AIR)) {
                         return;
@@ -40,11 +48,11 @@ public class NoStripNoPath implements Listener {
                     if (p.getItemInHand().getType().name().endsWith("_AXE")) {
 
                         if (!database.getBoolean(p, "StripLog")) {
-                            Utils.sendAction(p, "§cAction prevented by SurvivalTweaks §4/striplog");
+                            Utils.sendAction(p, "§cAction prevented by SurvivalTweaks §4/settings");
                             e.setCancelled(true);
                         }
                     }
-                } else if (block.getType().equals(Material.GRASS_BLOCK)) {
+                } else if (Pathmats.contains(block.getType())) {
 
                     if (p.getItemInHand() == null || p.getItemInHand().getType().equals(Material.AIR)) {
                         return;
@@ -54,7 +62,7 @@ public class NoStripNoPath implements Listener {
 
                         if (!database.getBoolean(p, "GrassPath")) {
                             e.setCancelled(true);
-                            Utils.sendAction(p, "§cAction prevented by SurvivalTweaks §4/grasspath");
+                            Utils.sendAction(p, "§cAction prevented by SurvivalTweaks §4/settings");
                         }
                     }
                 }

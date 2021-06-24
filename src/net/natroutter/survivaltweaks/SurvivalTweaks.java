@@ -1,10 +1,14 @@
 package net.natroutter.survivaltweaks;
 
+import net.natroutter.natlibs.NATLibs;
 import net.natroutter.natlibs.handlers.Database.YamlDatabase;
 import net.natroutter.natlibs.handlers.EventManager;
-import net.natroutter.natlibs.handlers.LangManager;
+import net.natroutter.natlibs.handlers.FileManager;
+import net.natroutter.natlibs.objects.ConfType;
+import net.natroutter.natlibs.utilities.Utilities;
 import net.natroutter.survivaltweaks.commands.*;
 import net.natroutter.survivaltweaks.features.*;
+import net.natroutter.survivaltweaks.features.recipies.RecipeHandler;
 import net.natroutter.survivaltweaks.features.scoreboards.JoinScoreboard;
 import net.natroutter.survivaltweaks.features.scoreboards.ScoreboardHandler;
 import net.natroutter.survivaltweaks.utilities.Lang;
@@ -19,23 +23,28 @@ public class SurvivalTweaks extends JavaPlugin {
     private static YamlDatabase yamlDatabase;
     private static Lang lang;
     private static ScoreboardHandler sbHandler;
+    private static Utilities utilities;
 
     public static YamlDatabase getYamlDatabase() {return yamlDatabase;}
     public static Lang getLang() {return lang;}
     public static ScoreboardHandler getSbHandler(){return sbHandler;}
+    public static Utilities getUtilities() { return utilities; }
 
     @Override
     public void onEnable() {
+        new NATLibs(this);
 
         yamlDatabase = new YamlDatabase(this);
 
         sbHandler = new ScoreboardHandler();
 
-        LangManager langManager = new LangManager(this);
-        lang = langManager.load(Lang.class).get(Lang.class);
+        FileManager langManager = new FileManager(this, ConfType.Lang);
+        lang = langManager.load(Lang.class);
 
-        EventManager em = new EventManager();
-        em.RegisterListeners(this,
+        utilities = new Utilities(this);
+
+        EventManager em = new EventManager(this);
+        em.RegisterListeners(
                 NoStripNoPath.class,
                 NoCreeperDestruction.class,
                 EntitySpawningTweaks.class,
@@ -48,18 +57,13 @@ public class SurvivalTweaks extends JavaPlugin {
                 JoinScoreboard.class,
                 AfkDisplay.class,
                 TablistNames.class,
-                PvPProtection.class
+                PvPProtection.class,
+                SurvivalLight.class
         );
 
-        em.RegisterCommands(this,
-                ArmorAlert.class,
-                Grasspath.class,
-                HealthAlert.class,
-                Pettp.class,
-                Striplog.class,
-                ToolAlert.class,
-                PvP.class
-        );
+        em.RegisterCommands(Settings.class);
+
+        RecipeHandler.register(this);
 
         ScheduledTasks st = new ScheduledTasks(this, sbHandler);
 

@@ -1,23 +1,28 @@
 package net.natroutter.survivaltweaks.features;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.natroutter.natlibs.handlers.Database.YamlDatabase;
 import net.natroutter.natlibs.objects.BaseItem;
-import net.natroutter.natlibs.objects.BasePlayer;
 import net.natroutter.survivaltweaks.SurvivalTweaks;
-import org.bukkit.Material;
+import net.natroutter.survivaltweaks.features.Settings.AlertMode;
+import net.natroutter.survivaltweaks.utilities.Lang;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
 public class ToolAlerts implements Listener {
 
     private final YamlDatabase database = SurvivalTweaks.getYamlDatabase();
+    private final Lang lang = SurvivalTweaks.getLang();
 
     ArrayList<String> toolIdentiers = new ArrayList<String>() {{
         add("shovel");
@@ -37,19 +42,34 @@ public class ToolAlerts implements Listener {
         return false;
     }
 
-    public void alert(BasePlayer p, BaseItem tool) {
+    public void alert(Player p, BaseItem tool) {
         double MaxDur = (double) tool.getType().getMaxDurability();
         double CurrentDur = (double) MaxDur - tool.getDurability();
         double CalcResult = MaxDur * 0.10;
 
         if (CurrentDur < CalcResult) {
-            p.sendTitle("", "§c§l⚒ LOW DURABILITY ⚒", 0, 15, 10);
+
+            AlertMode mode = AlertMode.fromString(database.getString(p, "AlertMode"));
+            if (mode == null) {mode = AlertMode.CHAT;}
+            p.sendMessage("Mode: " + mode);
+            switch (mode) {
+                case CHAT:
+                    p.sendMessage(lang.Prefix + "§7Low duravility!!");
+                case TITLE:
+                    p.sendTitle("", "§c§l⚒ LOW DURABILITY ⚒", 0, 15, 10);
+                case ACTION:
+                    p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder("§c§l⚒ LOW DURABILITY ⚒").create());
+            }
+            if (database.getBoolean(p, "UseSound")) {
+                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 100 ,1);
+            }
+
         }
     }
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
-        BasePlayer p = BasePlayer.from(e.getPlayer());
+        Player p = e.getPlayer();
 
         if (database.getBoolean(p, "ToolAlert")) {
             BaseItem mainHand = BaseItem.from(p.getInventory().getItemInMainHand());
@@ -60,23 +80,23 @@ public class ToolAlerts implements Listener {
 
             } else if (validTool(offHand)) {
                 alert(p, offHand);
-
             }
         }
     }
+
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent e) {
 
         if (e.hasBlock() && e.hasItem() && e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-            BasePlayer p = BasePlayer.from(e.getPlayer());
+            Player p = e.getPlayer();
             BaseItem item = BaseItem.from(e.getItem());
             String itemName = item.getType().name();
             Block block = e.getClickedBlock();
             String blockName = block.getType().name();
 
             if (itemName.endsWith("_SHOVEL")) {
-                if (block.getType().equals(Material.GRASS_BLOCK)) {
+                if (NoStripNoPath.Pathmats.contains(block.getType())) {
                     if (database.getBoolean(p, "GrassPath")) {
                         alert(p, item);
                     }

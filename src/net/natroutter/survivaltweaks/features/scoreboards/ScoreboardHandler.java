@@ -1,5 +1,7 @@
 package net.natroutter.survivaltweaks.features.scoreboards;
 
+import net.natroutter.natlibs.handlers.Database.YamlDatabase;
+import net.natroutter.survivaltweaks.SurvivalTweaks;
 import net.natroutter.survivaltweaks.features.scoreboards.boards.DeathsBoard;
 import net.natroutter.survivaltweaks.features.scoreboards.boards.ElytraDistanceBoard;
 import net.natroutter.survivaltweaks.features.scoreboards.boards.LevelBoard;
@@ -18,6 +20,8 @@ public class ScoreboardHandler {
     LevelBoard levelBoard;
     RichestPlayersBoard richestBoard;
     DeathsBoard deathsBoard;
+
+    private YamlDatabase database = SurvivalTweaks.getYamlDatabase();
 
     public ScoreboardHandler() {
         sbManager = Bukkit.getScoreboardManager();
@@ -79,8 +83,10 @@ public class ScoreboardHandler {
     }
 
     public void displayBoard(Scoreboard board) {
-        Bukkit.getOnlinePlayers().forEach((p)->{
-            p.setScoreboard(board);
+        Bukkit.getOnlinePlayers().forEach((p)-> {
+            if (database.getBoolean(p, "SBVisible")) {
+                p.setScoreboard(board);
+            }
         });
     }
 

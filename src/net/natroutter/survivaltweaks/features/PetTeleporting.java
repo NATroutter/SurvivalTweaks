@@ -1,7 +1,6 @@
 package net.natroutter.survivaltweaks.features;
 
 import net.natroutter.natlibs.handlers.Database.YamlDatabase;
-import net.natroutter.natlibs.objects.BasePlayer;
 import net.natroutter.survivaltweaks.SurvivalTweaks;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -22,7 +21,7 @@ public class PetTeleporting implements Listener {
             Tameable pet = (Tameable)ent;
 
             if (pet.getOwner() instanceof Player) {
-                BasePlayer owner = BasePlayer.from((Player)pet.getOwner());
+                Player owner = (Player)pet.getOwner();
 
                 if (!database.getBoolean(owner, "PetTP")) {
                     e.setCancelled(true);

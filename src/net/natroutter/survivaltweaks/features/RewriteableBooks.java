@@ -1,9 +1,9 @@
 package net.natroutter.survivaltweaks.features;
 
 import net.natroutter.natlibs.objects.BaseItem;
-import net.natroutter.natlibs.objects.BasePlayer;
 import net.natroutter.survivaltweaks.utilities.Utils;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -13,7 +13,7 @@ public class RewriteableBooks implements Listener {
 
     @EventHandler
     public void PlayerInteractWithBook(PlayerInteractEvent e) {
-        BasePlayer p = BasePlayer.from(e.getPlayer());
+        Player p = e.getPlayer();
 
         if (e.hasItem()) {
             BaseItem item = BaseItem.from(e.getItem());

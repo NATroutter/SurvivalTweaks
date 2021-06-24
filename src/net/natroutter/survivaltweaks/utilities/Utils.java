@@ -4,10 +4,10 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.natroutter.natlibs.handlers.Database.YamlDatabase;
 import net.natroutter.natlibs.objects.BaseItem;
-import net.natroutter.natlibs.objects.BasePlayer;
 import net.natroutter.survivaltweaks.SurvivalTweaks;
 import net.natroutter.survivaltweaks.features.AfkDisplay;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
@@ -18,7 +18,15 @@ public class Utils {
 
     private static final YamlDatabase database = SurvivalTweaks.getYamlDatabase();
 
-    public static boolean lowDurability(BasePlayer p, BaseItem armor) {
+    public static String locKey(Location loc) {
+        return loc.getWorld().getName()+"|"+loc.getBlockX()+"|"+loc.getBlockY()+"|"+loc.getBlockZ();
+    }
+
+    public static String status(boolean status) {
+        return status ? "§cEnabled" : "§cDisabled";
+    }
+
+    public static boolean lowDurability(Player p, BaseItem armor) {
         double MaxDur = (double) armor.getType().getMaxDurability();
         double CurrentDur = (double) MaxDur - armor.getDurability();
         double CalcResult = MaxDur * 0.10;
@@ -26,7 +34,7 @@ public class Utils {
         return CurrentDur < CalcResult;
     }
 
-    public static void UpdateTabname(BasePlayer p, boolean isAFK) {
+    public static void updateTabname(Player p, boolean isAFK) {
         if (isAFK) {
             p.setPlayerListName("§8[AFK] §7" + p.getDisplayName());
         } else {
@@ -34,7 +42,7 @@ public class Utils {
         }
     }
 
-    public static void sendAction(BasePlayer p, String msg) {
+    public static void sendAction(Player p, String msg) {
         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(msg));
     }
 
@@ -59,7 +67,6 @@ public class Utils {
             left = "§c" + days + " §7days§c " + hours + " §7hours§c " + minutes + " §7minutes§c " + seconds + " §7seconds§c";
         }
         return left;
-
     }
 
     public static void calculateRichest() {
