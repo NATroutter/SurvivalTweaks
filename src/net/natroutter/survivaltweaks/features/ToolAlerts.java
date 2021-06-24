@@ -51,7 +51,6 @@ public class ToolAlerts implements Listener {
 
             AlertMode mode = AlertMode.fromString(database.getString(p, "AlertMode"));
             if (mode == null) {mode = AlertMode.CHAT;}
-            p.sendMessage("Mode: " + mode);
             switch (mode) {
                 case CHAT:
                     p.sendMessage(lang.Prefix + "§7Low duravility!!");
