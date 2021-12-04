@@ -53,7 +53,7 @@ public class ScheduledTasks {
                 for (Block block : util.getBlocks(p.getLocation(), 10)) {
                     if (!block.getType().equals(Material.LIGHT)) {continue;}
 
-                    util.spawnParticle(p, new ParticleSettings(Particle.LIGHT, block.getLocation().add(0.5, 0.5, 0.5), 1, 0, 0, 0, 0));
+                    util.spawnParticle(p, new ParticleSettings(Particle.GLOW, block.getLocation().add(0.5, 0.5, 0.5), 1, 0, 0, 0, 0));
                 }
             }
         }, 0, 20L);
