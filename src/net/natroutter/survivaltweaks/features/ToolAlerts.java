@@ -1,12 +1,12 @@
 package net.natroutter.survivaltweaks.features;
 
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.title.Title;
 import net.natroutter.natlibs.handlers.Database.YamlDatabase;
 import net.natroutter.natlibs.objects.BaseItem;
-import net.natroutter.survivaltweaks.SurvivalTweaks;
-import net.natroutter.survivaltweaks.features.Settings.AlertMode;
+import net.natroutter.survivaltweaks.Handler;
+import net.natroutter.survivaltweaks.features.settings.AlertMode;
 import net.natroutter.survivaltweaks.utilities.Lang;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -17,12 +17,18 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 public class ToolAlerts implements Listener {
 
-    private final YamlDatabase database = SurvivalTweaks.getYamlDatabase();
-    private final Lang lang = SurvivalTweaks.getLang();
+    private final YamlDatabase database;
+    private final Lang lang;
+
+    public ToolAlerts(Handler handler) {
+        database = handler.getYamlDatabase();
+        lang = handler.getLang();
+    }
 
     ArrayList<String> toolIdentiers = new ArrayList<String>() {{
         add("shovel");
@@ -43,8 +49,8 @@ public class ToolAlerts implements Listener {
     }
 
     public void alert(Player p, BaseItem tool) {
-        double MaxDur = (double) tool.getType().getMaxDurability();
-        double CurrentDur = (double) MaxDur - tool.getDurability();
+        double MaxDur = tool.getType().getMaxDurability();
+        double CurrentDur = MaxDur - tool.getDurability();
         double CalcResult = MaxDur * 0.10;
 
         if (CurrentDur < CalcResult) {
@@ -52,13 +58,17 @@ public class ToolAlerts implements Listener {
             AlertMode mode = AlertMode.fromString(database.getString(p, "AlertMode"));
             if (mode == null) {mode = AlertMode.CHAT;}
             switch (mode) {
-                case CHAT:
-                    p.sendMessage(lang.Prefix + "§7Low duravility!!");
-                case TITLE:
-                    p.sendTitle("", "§c§l⚒ LOW DURABILITY ⚒", 0, 15, 10);
-                case ACTION:
-                    p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder("§c§l⚒ LOW DURABILITY ⚒").create());
+                case CHAT -> p.sendMessage(lang.Prefix + "§7Low duravility!!");
+                case TITLE -> {
+                    Title.Times times = Title.Times.of(Duration.ZERO, Duration.ofMillis(1000), Duration.ofMillis(500));
+                    Component title = Component.text("");
+                    Component subTitle = LegacyComponentSerializer.legacyAmpersand().deserialize("&c&l⚒ LOW DURABILITY ⚒");
+                    p.showTitle(Title.title(title, subTitle, times));
+                }
+                case ACTION -> p.sendActionBar(LegacyComponentSerializer.legacyAmpersand().deserialize("&c&l⚒ LOW DURABILITY ⚒"));
+
             }
+
             if (database.getBoolean(p, "UseSound")) {
                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 100 ,1);
             }

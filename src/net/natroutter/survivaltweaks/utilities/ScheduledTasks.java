@@ -1,9 +1,10 @@
 package net.natroutter.survivaltweaks.utilities;
 
+import net.natroutter.natlibs.handlers.ParticleSpawner;
 import net.natroutter.natlibs.objects.ParticleSettings;
 import net.natroutter.natlibs.utilities.Utilities;
-import net.natroutter.survivaltweaks.SurvivalTweaks;
-import net.natroutter.survivaltweaks.features.AfkDisplay;
+import net.natroutter.survivaltweaks.Handler;
+import net.natroutter.survivaltweaks.features.afkdisplay.AfkHandler;
 import net.natroutter.survivaltweaks.features.scoreboards.ScoreboardHandler;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -15,18 +16,22 @@ import java.util.UUID;
 
 public class ScheduledTasks {
 
-    private static final Utilities util = SurvivalTweaks.getUtilities();
-
-    public ScheduledTasks(JavaPlugin plugin, ScoreboardHandler sbHandler) {
+    public ScheduledTasks(Handler handler) {
+        JavaPlugin plugin = handler.getInstance();
+        Utilities util = handler.getUtilities();
+        ScoreboardHandler sbHandler = handler.getScoreboardHandler();
+        Utils utils = handler.getUtils();
+        AfkHandler afkHandler = handler.getAfkHandler();
+        ParticleSpawner spawner = handler.getParticleSpawner();
 
         //--[ Scoreboard rotator ]----------------------------------------------------------
 
-        Integer scoreboardRotate_TaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, sbHandler::rotateBoards, 0, 20L * 120);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, sbHandler::rotateBoards, 0, 20L * 120);
 
         //--[ Afk updater ]----------------------------------------------------------
 
-        Integer lastmovedCheck_TaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
-            for (Map.Entry<UUID, Long> entry : AfkDisplay.lastMoved.entrySet()) {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+            for (Map.Entry<UUID, Long> entry : afkHandler.lastMoved.entrySet()) {
                 long lastmoved_sec = ((System.currentTimeMillis() - entry.getValue()) / 1000);
                 long lastmoved_min = lastmoved_sec / 60;
 
@@ -37,14 +42,14 @@ public class ScheduledTasks {
 
                 Player p = (Player)offP;
 
-                Utils.updateTabname(p, lastmoved_sec >= 5);
+                utils.updateTabname(p, lastmoved_min >= 3);
             }
 
         }, 0, 20L * 60);
 
         //--[ Survival light block particles ]----------------------------------------------------------
 
-        Integer survivalLight_TaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             for (Player p : Bukkit.getOnlinePlayers()) {
 
                 if (!p.getInventory().getItemInMainHand().getType().equals(Material.LIGHT)) {continue;}
@@ -53,7 +58,7 @@ public class ScheduledTasks {
                 for (Block block : util.getBlocks(p.getLocation(), 10)) {
                     if (!block.getType().equals(Material.LIGHT)) {continue;}
 
-                    util.spawnParticle(p, new ParticleSettings(Particle.GLOW, block.getLocation().add(0.5, 0.5, 0.5), 1, 0, 0, 0, 0));
+                    spawner.spawnParticle(p, new ParticleSettings(Particle.GLOW, block.getLocation().add(0.5, 0.5, 0.5), 10, 0, 0, 0, 0));
                 }
             }
         }, 0, 20L);

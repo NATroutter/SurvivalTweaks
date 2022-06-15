@@ -11,12 +11,10 @@ public class NoCreeperDestruction implements Listener {
 
     @EventHandler
     public void EntityExplode(EntityExplodeEvent e) {
-
         if (e.getEntityType().equals(EntityType.CREEPER)) {
             e.blockList().clear();
         }
     }
-
 
 
 }

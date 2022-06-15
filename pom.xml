@@ -6,7 +6,7 @@
 
     <groupId>net.natroutter</groupId>
     <artifactId>SurvivalTweaks</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.5</version>
     <packaging>jar</packaging>
     <name>SurvivalTweaks</name>
     <description>Adds some mostly vanilla friendly tweaks to your survival gameplay</description>
@@ -60,8 +60,8 @@
 
     <repositories>
         <repository>
-            <id>NATLibs-dev</id>
-            <url>https://hub.nat.gs/nexus/repository/NATLibs-dev/</url>
+            <id>NAT-Software</id>
+            <url>https://hub.nat.gg/nexus/repository/NAT-Software/</url>
         </repository>
         <repository>
             <id>papermc</id>
@@ -73,12 +73,19 @@
         <dependency>
             <groupId>net.natroutter</groupId>
             <artifactId>NATLibs</artifactId>
-            <version>1.1.50</version>
+            <version>2.0.12</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>1.18-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

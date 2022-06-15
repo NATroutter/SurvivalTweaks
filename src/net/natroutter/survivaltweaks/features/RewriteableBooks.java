@@ -1,6 +1,7 @@
 package net.natroutter.survivaltweaks.features;
 
 import net.natroutter.natlibs.objects.BaseItem;
+import net.natroutter.survivaltweaks.Handler;
 import net.natroutter.survivaltweaks.utilities.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,6 +11,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.meta.BookMeta;
 
 public class RewriteableBooks implements Listener {
+
+    private Utils utils;
+
+    public RewriteableBooks(Handler handler) {
+        utils = handler.getUtils();
+    }
 
     @EventHandler
     public void PlayerInteractWithBook(PlayerInteractEvent e) {
@@ -27,7 +34,7 @@ public class RewriteableBooks implements Listener {
 
                     if (book.getAuthor().equals(p.getDisplayName())) {
                         item.setType(Material.WRITABLE_BOOK);
-                        Utils.sendAction(p, "§cBook is now writeable!");
+                        utils.sendAction(p, "§cBook is now writeable!");
                     }
 
                 }

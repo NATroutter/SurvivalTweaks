@@ -4,8 +4,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.natroutter.natlibs.handlers.Database.YamlDatabase;
 import net.natroutter.natlibs.objects.BaseItem;
-import net.natroutter.survivaltweaks.SurvivalTweaks;
-import net.natroutter.survivaltweaks.features.AfkDisplay;
+import net.natroutter.survivaltweaks.Handler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -16,17 +15,21 @@ import org.bukkit.inventory.meta.BlockStateMeta;
 
 public class Utils {
 
-    private static final YamlDatabase database = SurvivalTweaks.getYamlDatabase();
+    private final YamlDatabase database;
 
-    public static String locKey(Location loc) {
+    public Utils(Handler handler) {
+        database = handler.getYamlDatabase();
+    }
+
+    public String locKey(Location loc) {
         return loc.getWorld().getName()+"|"+loc.getBlockX()+"|"+loc.getBlockY()+"|"+loc.getBlockZ();
     }
 
-    public static String status(boolean status) {
+    public String status(boolean status) {
         return status ? "§cEnabled" : "§cDisabled";
     }
 
-    public static boolean lowDurability(Player p, BaseItem armor) {
+    public boolean lowDurability(Player p, BaseItem armor) {
         double MaxDur = (double) armor.getType().getMaxDurability();
         double CurrentDur = (double) MaxDur - armor.getDurability();
         double CalcResult = MaxDur * 0.10;
@@ -34,7 +37,7 @@ public class Utils {
         return CurrentDur < CalcResult;
     }
 
-    public static void updateTabname(Player p, boolean isAFK) {
+    public void updateTabname(Player p, boolean isAFK) {
         if (isAFK) {
             p.setPlayerListName("§8[AFK] §7" + p.getDisplayName());
         } else {
@@ -42,11 +45,11 @@ public class Utils {
         }
     }
 
-    public static void sendAction(Player p, String msg) {
+    public void sendAction(Player p, String msg) {
         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(msg));
     }
 
-    public static String timeLeft(long timeoutSeconds) {
+    public String timeLeft(long timeoutSeconds) {
         int days = (int) (timeoutSeconds / 86400);
         int hours = (int) (timeoutSeconds / 3600) % 24;
         int minutes = (int) (timeoutSeconds / 60) % 60;
@@ -69,7 +72,7 @@ public class Utils {
         return left;
     }
 
-    public static void calculateRichest() {
+    public void calculateRichest() {
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             int riches = 0;

@@ -1,8 +1,4 @@
-package net.natroutter.survivaltweaks.features.Settings;
-
-import org.checkerframework.checker.units.qual.A;
-
-import java.util.Locale;
+package net.natroutter.survivaltweaks.features.settings;
 
 public enum AlertMode {
     CHAT,
@@ -26,11 +22,10 @@ public enum AlertMode {
     }
 
     public String lang() {
-        switch (this) {
-            case CHAT:return "§cChat";
-            case TITLE:return "§cTitle";
-            case ACTION:return "§cAction bar";
-            default:return "";
-        }
+        return switch (this) {
+            case CHAT -> "§cChat";
+            case TITLE -> "§cTitle";
+            case ACTION -> "§cAction bar";
+        };
     }
 }

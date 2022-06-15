@@ -1,6 +1,7 @@
 package net.natroutter.survivaltweaks.features.scoreboards.boards;
 
 import net.natroutter.natlibs.handlers.Database.YamlDatabase;
+import net.natroutter.survivaltweaks.Handler;
 import net.natroutter.survivaltweaks.SurvivalTweaks;
 import net.natroutter.survivaltweaks.utilities.Utils;
 import org.bukkit.Bukkit;
@@ -11,15 +12,20 @@ import java.util.UUID;
 
 public class RichestPlayersBoard {
 
-    private final YamlDatabase database = SurvivalTweaks.getYamlDatabase();
+    private YamlDatabase database;
 
     private UUID uuid;
     private Scoreboard board;
     private Objective obj;
 
-    public RichestPlayersBoard(ScoreboardManager sbManager) {
+    private Utils utils;
+
+    public RichestPlayersBoard(Handler handler, ScoreboardManager sbManager) {
         this.uuid = UUID.randomUUID();
         this.board = sbManager.getNewScoreboard();
+        this.database = handler.getYamlDatabase();
+
+        this.utils = handler.getUtils();
 
         obj = board.registerNewObjective("RichestPlayers", "dummy","", RenderType.INTEGER);
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -28,7 +34,7 @@ public class RichestPlayersBoard {
 
     public Scoreboard getBoard() {
         if (board != null) {
-            Utils.calculateRichest();
+            utils.calculateRichest();
             for (OfflinePlayer p : Bukkit.getOfflinePlayers()) {
 
                 Integer riches = database.getInt(p, "Riches");

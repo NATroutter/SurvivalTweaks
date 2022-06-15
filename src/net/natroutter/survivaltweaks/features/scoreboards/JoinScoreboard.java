@@ -1,6 +1,7 @@
 package net.natroutter.survivaltweaks.features.scoreboards;
 
 import net.natroutter.natlibs.handlers.Database.YamlDatabase;
+import net.natroutter.survivaltweaks.Handler;
 import net.natroutter.survivaltweaks.SurvivalTweaks;
 import net.natroutter.survivaltweaks.features.scoreboards.ScoreboardHandler;
 import org.bukkit.entity.Player;
@@ -11,8 +12,13 @@ import org.bukkit.scoreboard.Scoreboard;
 
 public class JoinScoreboard implements Listener {
 
-    private final ScoreboardHandler sbHandler = SurvivalTweaks.getSbHandler();
-    private final YamlDatabase database = SurvivalTweaks.getYamlDatabase();
+    private ScoreboardHandler sbHandler;
+    private YamlDatabase database;
+
+    public JoinScoreboard(Handler handler) {
+        sbHandler = handler.getScoreboardHandler();
+        database = handler.getYamlDatabase();
+    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {

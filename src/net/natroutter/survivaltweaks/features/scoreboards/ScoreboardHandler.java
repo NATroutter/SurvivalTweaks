@@ -1,6 +1,7 @@
 package net.natroutter.survivaltweaks.features.scoreboards;
 
 import net.natroutter.natlibs.handlers.Database.YamlDatabase;
+import net.natroutter.survivaltweaks.Handler;
 import net.natroutter.survivaltweaks.SurvivalTweaks;
 import net.natroutter.survivaltweaks.features.scoreboards.boards.DeathsBoard;
 import net.natroutter.survivaltweaks.features.scoreboards.boards.ElytraDistanceBoard;
@@ -13,23 +14,24 @@ import java.util.UUID;
 
 public class ScoreboardHandler {
 
-    ScoreboardManager sbManager;
-    UUID currentBoard = null;
+    private ScoreboardManager sbManager;
+    private UUID currentBoard = null;
 
-    ElytraDistanceBoard elytraDistanceBoard;
-    LevelBoard levelBoard;
-    RichestPlayersBoard richestBoard;
-    DeathsBoard deathsBoard;
+    private ElytraDistanceBoard elytraDistanceBoard;
+    private LevelBoard levelBoard;
+    private RichestPlayersBoard richestBoard;
+    private DeathsBoard deathsBoard;
 
-    private YamlDatabase database = SurvivalTweaks.getYamlDatabase();
+    private YamlDatabase database;
 
-    public ScoreboardHandler() {
+    public ScoreboardHandler(Handler handler) {
+        database = handler.getYamlDatabase();
         sbManager = Bukkit.getScoreboardManager();
 
         //Register different scoreboards
         elytraDistanceBoard = new ElytraDistanceBoard(sbManager);
-        levelBoard = new LevelBoard(sbManager);
-        richestBoard = new RichestPlayersBoard(sbManager);
+        levelBoard = new LevelBoard(handler, sbManager);
+        richestBoard = new RichestPlayersBoard(handler, sbManager);
         deathsBoard = new DeathsBoard(sbManager);
 
     }
