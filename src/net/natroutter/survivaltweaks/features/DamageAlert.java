@@ -3,7 +3,7 @@ package net.natroutter.survivaltweaks.features;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.title.Title;
-import net.natroutter.natlibs.handlers.Database.YamlDatabase;
+import net.natroutter.natlibs.handlers.database.YamlDatabase;
 import net.natroutter.natlibs.objects.BaseItem;
 import net.natroutter.survivaltweaks.Handler;
 import net.natroutter.survivaltweaks.features.settings.AlertMode;

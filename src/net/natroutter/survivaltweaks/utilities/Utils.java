@@ -2,7 +2,7 @@ package net.natroutter.survivaltweaks.utilities;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.natroutter.natlibs.handlers.Database.YamlDatabase;
+import net.natroutter.natlibs.handlers.database.YamlDatabase;
 import net.natroutter.natlibs.objects.BaseItem;
 import net.natroutter.survivaltweaks.Handler;
 import org.bukkit.Bukkit;

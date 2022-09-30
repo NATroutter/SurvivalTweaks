@@ -1,8 +1,8 @@
 package net.natroutter.survivaltweaks;
 
 import lombok.Getter;
-import net.natroutter.natlibs.handlers.Database.YamlDatabase;
 import net.natroutter.natlibs.handlers.ParticleSpawner;
+import net.natroutter.natlibs.handlers.database.YamlDatabase;
 import net.natroutter.natlibs.utilities.Utilities;
 import net.natroutter.survivaltweaks.features.afkdisplay.AfkHandler;
 import net.natroutter.survivaltweaks.features.settings.SettingsGUI;
@@ -59,6 +59,8 @@ public class Handler {
 
         this.particleSpawner = new ParticleSpawner();
 
+        this.afkHandler = new AfkHandler();
+
         this.utils = new Utils(this);
         this.genericItems = new GenericItems(this);
 
@@ -67,8 +69,6 @@ public class Handler {
 
         this.recipeHandler = new RecipeHandler(this);
         this.settingsGUI = new SettingsGUI(this);
-
-        this.afkHandler = new AfkHandler();
 
 
     }

@@ -1,6 +1,6 @@
 package net.natroutter.survivaltweaks.features.settings;
 
-import net.natroutter.natlibs.handlers.Database.YamlDatabase;
+import net.natroutter.natlibs.handlers.database.YamlDatabase;
 import net.natroutter.natlibs.handlers.gui.GUIItem;
 import net.natroutter.natlibs.handlers.gui.GUIRow;
 import net.natroutter.natlibs.handlers.gui.GUIWindow;

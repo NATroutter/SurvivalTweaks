@@ -15,7 +15,9 @@ public class Light {
     public Light(Handler handler) {
         NamespacedKey key = new NamespacedKey(handler.getInstance(), "light");
         ShapedRecipe recipe = new ShapedRecipe(key, new ItemStack(Material.LIGHT, 16));
-        recipe.shape("GGG", "DYD", "SSS");
+        recipe.shape("GGG",
+                     "YDY",
+                     "SSS");
         recipe.setIngredient('G', Material.GLASS);
         recipe.setIngredient('D', Material.DIAMOND);
         recipe.setIngredient('Y', Material.DRAGON_BREATH);

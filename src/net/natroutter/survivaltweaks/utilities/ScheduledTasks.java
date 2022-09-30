@@ -31,6 +31,7 @@ public class ScheduledTasks {
         //--[ Afk updater ]----------------------------------------------------------
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+            if (afkHandler.lastMoved == null ) {return;}
             for (Map.Entry<UUID, Long> entry : afkHandler.lastMoved.entrySet()) {
                 long lastmoved_sec = ((System.currentTimeMillis() - entry.getValue()) / 1000);
                 long lastmoved_min = lastmoved_sec / 60;

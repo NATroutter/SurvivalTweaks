@@ -1,6 +1,6 @@
 package net.natroutter.survivaltweaks.features.scoreboards;
 
-import net.natroutter.natlibs.handlers.Database.YamlDatabase;
+import net.natroutter.natlibs.handlers.database.YamlDatabase;
 import net.natroutter.survivaltweaks.Handler;
 import net.natroutter.survivaltweaks.SurvivalTweaks;
 import net.natroutter.survivaltweaks.features.scoreboards.boards.DeathsBoard;
